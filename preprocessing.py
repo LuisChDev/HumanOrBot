@@ -22,6 +22,8 @@ def getFiles(master):
             entry = line.split(':::')
             author = entry[0]
             botValue = entry[1]
+            dict = buildDict(author)
+            dfset.append(dict)
 
     return dfset
 
