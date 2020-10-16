@@ -23,6 +23,8 @@ def getFiles(master):
             author = entry[0]
             botValue = entry[1]
             dict = buildDict(author)
+            if botValue == 'bot':
+                dict.update({"botValue": 1})
             dfset.append(dict)
 
     return dfset
@@ -63,7 +65,8 @@ def buildDict(author):
         "links" : links,
         "punctuation" : punctuation,
         "hashtags" : hashtags,
-        "tags" : tags
+        "tags" : tags,
+        "botValue" : 0
     }
 
     return dict
