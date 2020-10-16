@@ -10,26 +10,24 @@ debe ser unidimensional, conteniendo la etiqueta real de cada punto de datos.
 Autor: Roque del Río
 """
 
-# placeholder. las variables finales deben tener el mismo tipo (nparray).
-
 import xml.etree.ElementTree as ET
 
 # get XML files
-def getFiles(master):
+def get_files(master):
     dfset = []
     with open("./pan19_author_profiling_training_es/" + master + ".txt", 'r+' ,encoding="utf-8") as file:
         for line in file:
             entry = line.split(':::')
             author = entry[0]
-            botValue = entry[1]
-            dict = buildDict(author)
-            if botValue == 'bot':
-                dict.update({"botValue": 1})
-            dfset.append(dict)
+            botvalue = entry[1]
+            entrydict = build_dict(author)
+            if botvalue == 'bot':
+                entrydict.update({"botvalue": 1})
+            dfset.append(entrydict)
 
     return dfset
 
-def buildDict(author):
+def build_dict(author):
     file = "./pan19_author_profiling_training_es/" + author + ".xml"
 
     # XML stuff
@@ -59,17 +57,17 @@ def buildDict(author):
         # tags
         tags += text.count('@')
 
-    dict = {
+    entrydict = {
         "author" : author,
         "rts" : rts,
         "links" : links,
         "punctuation" : punctuation,
         "hashtags" : hashtags,
         "tags" : tags,
-        "botValue" : 0
+        "botvalue" : 0
     }
 
-    return dict
+    return entrydict
 
 
 
