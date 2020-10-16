@@ -17,7 +17,7 @@ import xml.etree.ElementTree as ET
 # get XML files
 def getFiles(master):
     dfset = []
-    with open("./data/" + master + ".txt", 'r+' ,encoding="utf-8") as file:
+    with open("./pan19_author_profiling_training_es/" + master + ".txt", 'r+' ,encoding="utf-8") as file:
         for line in file:
             entry = line.split(':::')
             author = entry[0]
@@ -28,7 +28,7 @@ def getFiles(master):
     return dfset
 
 def buildDict(author):
-    file = "./data/" + author + ".xml"
+    file = "./pan19_author_profiling_training_es/" + author + ".xml"
 
     # XML stuff
     tree = ET.parse(file)
