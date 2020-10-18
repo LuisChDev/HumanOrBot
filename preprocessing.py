@@ -11,12 +11,12 @@ Autor: Roque del Río
 """
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from googletrans import Translator
+#from googletrans import Translator
 import xml.etree.ElementTree as ET
 import datetime
 
 analyser = SentimentIntensityAnalyzer()
-Translator = Translator()
+#Translator = Translator()
 
 # get XML files
 def get_files(master):
@@ -61,8 +61,8 @@ def build_dict(author):
         text = entry.text
 
         # Sentiment
-        text_trans = Translator.translate(text=text, src='es', dest='en')
-        score = analyser.polarity_scores(text_trans.text)
+        # text_trans = Translator.translate(text=text, src='es', dest='en')
+        score = analyser.polarity_scores(text)
         positive += score['pos']
         neutral += score['neu']
         negative += score['neg']
