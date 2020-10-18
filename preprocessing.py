@@ -10,9 +10,6 @@ debe ser unidimensional, conteniendo la etiqueta real de cada punto de datos.
 Autor: Roque del Río
 """
 
-from nltk.tokenize import TweetTokenizer
-from nltk.corpus import stopwords
-from nltk.stem import SnowballStemmer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from googletrans import Translator
 import xml.etree.ElementTree as ET
