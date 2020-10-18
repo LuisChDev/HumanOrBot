@@ -13,12 +13,15 @@ Autor: Roque del Río
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from googletrans import Translator
 import xml.etree.ElementTree as ET
+import datetime
 
 analyser = SentimentIntensityAnalyzer()
 Translator = Translator()
 
 # get XML files
 def get_files(master):
+    task_n = sum(1 for line in open("./pan19_author_profiling_training_es/" + master + ".txt"))
+    task_nc = 0
     dfset = []
     with open("./pan19_author_profiling_training_es/" + master + ".txt", 'r+' ,encoding="utf-8") as file:
         for line in file:
@@ -30,6 +33,9 @@ def get_files(master):
                 entrydict.update({"botvalue": 1})
             dfset.append(entrydict)
 
+            datetime_object = str(datetime.datetime.now())
+            task_nc += 1
+            print('[' + datetime_object + '] finished task ' + str(task_nc) + ' of ' + str(task_n))
     return dfset
 
 def build_dict(author):
@@ -56,7 +62,7 @@ def build_dict(author):
 
         # Sentiment
         text_trans = Translator.translate(text=text, src='es', dest='en')
-        score = analyser.polarity_scores(text_trans)
+        score = analyser.polarity_scores(text_trans.text)
         positive += score['pos']
         neutral += score['neu']
         negative += score['neg']
