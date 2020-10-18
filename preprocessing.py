@@ -14,6 +14,9 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from googletrans import Translator
 import xml.etree.ElementTree as ET
 
+analyser = SentimentIntensityAnalyzer()
+Translator = Translator()
+
 # get XML files
 def get_files(master):
     dfset = []
@@ -37,8 +40,6 @@ def build_dict(author):
     root = tree.getroot()
 
     #NLP stuff
-    analyser = SentimentIntensityAnalyzer()
-    Translator = Translator()
 
     rts = 0
     links = 0
