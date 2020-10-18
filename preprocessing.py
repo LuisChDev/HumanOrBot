@@ -56,7 +56,7 @@ def build_dict(author):
 
         # Sentiment
         text_trans = Translator.translate(text=text, src='es', dest='en')
-        score = analyser.polarity_scores(text_trans)
+        score = analyser.polarity_scores(text_trans.text)
         positive += score['pos']
         neutral += score['neu']
         negative += score['neg']
