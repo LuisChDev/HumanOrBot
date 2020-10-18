@@ -10,6 +10,11 @@ debe ser unidimensional, conteniendo la etiqueta real de cada punto de datos.
 Autor: Roque del Río
 """
 
+from nltk.tokenize import TweetTokenizer
+from nltk.corpus import stopwords
+from nltk.stem import SnowballStemmer
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from googletrans import Translator
 import xml.etree.ElementTree as ET
 
 # get XML files
@@ -34,15 +39,31 @@ def build_dict(author):
     tree = ET.parse(file)
     root = tree.getroot()
 
+    #NLP stuff
+    analyser = SentimentIntensityAnalyzer()
+    Translator = Translator()
 
     rts = 0
     links = 0
     punctuation = 0
     hashtags = 0
     tags = 0
+    positive = 0
+    neutral = 0
+    negative = 0
+    compound = 0
 
     for entry in root.iter('document'):
         text = entry.text
+
+        # Sentiment
+        text_trans = Translator.translate(text=text, src='es', dest='en')
+        score = analyser.polarity_scores(text_trans)
+        positive += score['pos']
+        neutral += score['neu']
+        negative += score['neg']
+        compound += score['compound']
+
         # RT
         rts += text.count('RT @')
         # Link
@@ -64,7 +85,11 @@ def build_dict(author):
         "punctuation" : punctuation,
         "hashtags" : hashtags,
         "tags" : tags,
-        "botvalue" : 0
+        "botvalue" : 0,
+        "positive" : positive,
+        "neutral": neutral,
+        "negative": negative,
+        "compound": compound
     }
 
     return entrydict
