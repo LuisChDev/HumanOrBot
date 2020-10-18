@@ -148,3 +148,6 @@ dmypy.json
 
 # la carpeta con el dataset
 pan19_author_profiling_training_es
+
+# intermediate files
+*.pkl
