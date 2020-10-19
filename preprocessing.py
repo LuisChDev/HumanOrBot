@@ -11,12 +11,12 @@ Autor: Roque del Río
 """
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-#from googletrans import Translator
+from googletrans import Translator
 import xml.etree.ElementTree as ET
 import datetime
 
 analyser = SentimentIntensityAnalyzer()
-#Translator = Translator()
+Translator = Translator()
 
 # get XML files
 def get_files(master):
@@ -47,21 +47,32 @@ def build_dict(author):
 
     #NLP stuff
 
+
     rts = 0
     links = 0
     punctuation = 0
     hashtags = 0
     tags = 0
+
     positive = 0
     neutral = 0
     negative = 0
     compound = 0
 
+    suspicious_words = 0
+    suspicious_words_lsit = ["bot", "bots", "sigueme", "sigame"]
+
     for entry in root.iter('document'):
         text = entry.text
 
+        # suspicious words
+        text_split = entry.text.split()
+        for word in text_split:
+            if word in suspicious_words_lsit:
+                suspicious_words += 1
+
         # Sentiment
-        # text_trans = Translator.translate(text=text, src='es', dest='en')
+        #text_trans = Translator.translate(text=text, src='es', dest='en')
         score = analyser.polarity_scores(text)
         positive += score['pos']
         neutral += score['neu']
@@ -93,10 +104,8 @@ def build_dict(author):
         "positive" : positive,
         "neutral": neutral,
         "negative": negative,
-        "compound": compound
+        "compound": compound,
+        "suspicious_words": suspicious_words
     }
 
     return entrydict
-
-
-
