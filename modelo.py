@@ -16,10 +16,10 @@ import pandas as pd
 import pickle
 
 # datos preprocesados
-with open('train_data.pkl', 'rb') as f:
+with open('train_data2.pkl', 'rb') as f:
     train_data = pickle.load(f)
 
-with open('dev_data.pkl', 'rb') as f:
+with open('dev_data2.pkl', 'rb') as f:
     dev_data = pickle.load(f)
 
 print("adaptando los datos")
@@ -33,9 +33,6 @@ Y_test = X_test['botvalue']
 X_train = X_train.drop('author', axis=1).drop('botvalue', axis=1)
 X_test = X_test.drop('author', axis=1).drop('botvalue', axis=1)
 
-breakpoint()
-
-print("entrenando modelo")
 
 # la tubería consiste en los siguientes pasos:
 # 1. se normalizan los valores respecto a su propio promedio,
@@ -89,3 +86,9 @@ print("puntaje R^2:", r2_score(Y_test, Y_pred2))
 print("Error cuadrático medio", mean_squared_error(Y_test, Y_pred))
 
 print("predicciones gradient boosting", Y_pred2[:5])
+
+with open('modelo_rfc2.pkl', 'wb') as f:
+    pickle.dump(clsf, f)
+
+with open('modelo_bsc2.pkl', 'wb') as f:
+    pickle.dump(clsf2, f)
