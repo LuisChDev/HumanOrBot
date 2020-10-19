@@ -60,7 +60,11 @@ def build_dict(author):
     compound = 0
 
     suspicious_words = 0
-    suspicious_words_lsit = ["bot", "bots", "sigueme", "sigame"]
+    suspicious_words_lsit = ["bot", "bots", "sigueme", "sigame", "seguidores", 
+                             "empleoTIC", "empleoTICJOB", "SEGUIDORES", "SIGUES", 
+                             "Follow", "OBSERVADOR", "DESCARGAR", "ipautaorg", "hacerfotos",
+                            "Unete", "ccdBot", "VIDEO", "elpaisuy", "ad", "cp", "TrafficBotGT"
+                            "AJNews", "Venta", "iPhone"]
 
     for entry in root.iter('document'):
         text = entry.text
